@@ -15,33 +15,36 @@ def banner():
           )
 if len(sys.argv) > 1:
         banner()
-        if (sys.argv[1] != 'l'):
+        if ((sys.argv[1] != 'l') | (sys.argv[1] == '-s')):
             try:
-                input_length = sys.argv[2]
+                input_start = sys.argv[2]
+                input_length = sys.argv[4]
                 parser = argparse.ArgumentParser()
+                parser.add_argument("-s", required=True)
                 parser.add_argument("-l", required=True)
                 print(bcolors.BITALIC + "Testing for HackerOne Reports")
                 int_input_length = int(input_length)
-                report = 0
-                base_url = 'https://hackerone.com/reports/1'
+
+                base_url = 'https://hackerone.com/reports/'
+
                 for report in range(int_input_length):
-                    report_url = base_url + str(report)
+                    rep = int(input_start) + report
+                    report_url = base_url + str(rep)
+
                     report_url_status = requests.get(report_url, allow_redirects=False).status_code
-                    print(report_url,report_url_status)
-                    print("********************************************************************")
                     if (report_url_status == 200):
+                        print(report_url)
                         print(bcolors.OKMSG + 'Report exists, you can check Report ')
-                    elif (report_url_status == 302):
-                        print(bcolors.OKMSG + 'Report exists but you have to login first')
-                    elif (report_url_status == 404):
-                        print(bcolors.ERRMSG + 'Report does not exist')
             except:
-                print(bcolors.OKMSG + 'Please enter python hackReport.py -l < Quantity of reports you want to check> ')
-        elif (sys.argv[1] == '-h'):
-            print(bcolors.BOLD + 'usage: hackReport.py [-h] -l LENGTH' '\n' 'OPTIONS:' '\n' '-h,--help    '
+                print(bcolors.OKMSG + 'Please enter python hackReport.py -s <start location > -l < Quantity of reports you want to check> ')
+        elif ((sys.argv[1] == '-h') | (sys.argv[1] == '--help')):
+            print(bcolors.BOLD + 'usage: hackReport.py [-h] -s  Start Location Of report' '\n' '-l LENGTH' '\n' 'OPTIONS:' '\n' '-h,--help    '
                                  'show this help message and exit' '\n''-h LENGTH,   --length LENGTH How many reports you want to check')
-        elif (sys.argv[1] != '-u'):
-            print(bcolors.OKMSG + 'Please enter -l < How many reports you want to search>')
+        elif ((sys.argv[1] != '-l') | (sys.argv[1] != '-s')):
+            print(bcolors.OKMSG + 'Please enter -s < start location > -l < How many reports you want to search>')
 else:
         banner()
-        print(bcolors.ERR + 'Please select at-least 1 option from -l or -h')
+        print(bcolors.ERR + 'Please select at-least 1 option from (-l,-s) or -h')
+
+
+
