@@ -1,6 +1,4 @@
-# hackerone-crawl
-
-This tool crawls the publically disclose's report of hackerone.
+This tool crawls the publically disclosed report of hackerone.
 
 ## Requirment:
 
@@ -16,13 +14,15 @@ This tool crawls the publically disclose's report of hackerone.
 
 ## usage: 
 
-hackReport.py  -l < "Give the no how many report you want to crawal" > 
+hackReport.py  -s <"Report No from where you want to start to the crawling "> -l < "Give the length how many report youwant to crawal" > 
 
 
 OPTIONS: 
 
 ```
--h 	          Shows help options	
+-h 	      Shows help options
+-s            Report No from where you want to start to the crawling	
 -l            Length how many report you want to crawl 
   		
+```
 ```
